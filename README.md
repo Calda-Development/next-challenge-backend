@@ -28,7 +28,7 @@ supabase stop
 
 ## 3. Backend Changes
 
-If you want to modify the backend, fork this repository, commit changes and invite **TODO**.
+If you want to modify the backend, fork this repository, commit changes and invite **challenge@thecalda.com**.
 
 > ❗️ Important -
 > We expect that any changes will be applied to the backend when we run supabase start.
