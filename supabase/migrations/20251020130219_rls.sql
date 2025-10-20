@@ -17,7 +17,7 @@ ON public.pizzas
 FOR ALL
 TO authenticated
 USING (
-  auth.jwt()->>'user_role' = 'admin'
+  true
 )
 WITH CHECK (
   auth.jwt()->>'user_role' = 'admin'
@@ -34,40 +34,21 @@ ON public.add_ons
 FOR ALL
 TO authenticated
 USING (
-  auth.jwt()->>'user_role' = 'admin'
+  true
 )
 WITH CHECK (
   auth.jwt()->>'user_role' = 'admin'
 );
 
-CREATE POLICY users_data_read_access
-ON public.users_data
-FOR SELECT
-TO authenticated
-USING (
-  id = auth.uid()
-);
-
-CREATE POLICY users_data_update_access
-ON public.users_data
-FOR UPDATE
-TO authenticated
-USING (
-  id = auth.uid()
-)
-WITH CHECK (
-  id = auth.uid()
-);
-
-CREATE POLICY users_data_admin_full_access
+CREATE POLICY users_data_access
 ON public.users_data
 FOR ALL
 TO authenticated
 USING (
-  auth.jwt()->>'user_role' = 'admin'
+  auth.uid() = id OR auth.jwt()->>'user_role' = 'admin'
 )
 WITH CHECK (
-  auth.jwt()->>'user_role' = 'admin'
+  auth.uid() = id OR auth.jwt()->>'user_role' = 'admin'
 );
 
 CREATE POLICY user_roles_readonly
